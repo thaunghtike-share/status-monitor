@@ -1,0 +1,69 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Virtual environment
+venv/
+env/
+.venv/
+.env/
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+media/
+staticfiles/
+static_root/
+local_settings.py
+
+# Environment variables
+.env
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+*.iml
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Migrations - optional, if you want to generate them fresh every time
+# **/migrations/
+# !*/migrations/__init__.py
+
+# Coverage reports
+htmlcov/
+.coverage
+.tox/
+.nox/
+coverage.xml
+*.cover
+.cache
+
+# Test results
+.junit/
+nosetests.xml
+test-results/
+
+# MyPy / Pyright
+.mypy_cache/
+.pyright/
+
+# Pylint / Flake8
+.pylint.d/
+.pyre/
