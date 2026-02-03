@@ -1,0 +1,68 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: health-status-backend
+  namespace: learndevopsnow
+  labels:
+    app: health-status-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: health-status-backend
+  template:
+    metadata:
+      labels:
+        app: health-status-backend
+    spec:
+      containers:
+        - name: health-status-backend
+          image: mahar.azurecr.io/ldn-status-api:latest
+          ports:
+            - containerPort: 8000
+          imagePullPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: health-status-backend
+  namespace: learndevopsnow
+spec:
+  type: ClusterIP
+  selector:
+    app: health-status-backend
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+
+---
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    certmanager.k8s.io/acme-challenge-type: dns01
+    certmanager.k8s.io/acme-dns01-provider: cloudflare
+  labels:
+    app: health-status-backend
+  name: health-status-backend-ingress
+  namespace: learndevopsnow
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: api-status.learndevopsnow-mm.blog
+      http:
+        paths:
+          - backend:
+              service:
+                name: health-status-backend
+                port:
+                  number: 8000
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - api-status.learndevopsnow-mm.blog
+      secretName: tls-secret-ldn-mm       
